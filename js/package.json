@@ -1,6 +1,6 @@
 {
   "name": "ludamtalk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "루담톡(LudamTalk) 온라인채팅 봇 SDK — 게이트웨이 연결, 명령어, 임베드, 보안 봇, AI 봇",
   "main": "index.js",
   "types": "index.d.ts",

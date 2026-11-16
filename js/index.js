@@ -19,7 +19,7 @@ try { WS = require("ws"); } catch { WS = null; }
 
 const API = "https://api.ludamtalk.com";
 const GATEWAY = "wss://api.ludamtalk.com/bot/gateway";
-const VERSION = "1.0.0";
+const VERSION = "1.0.1";
 
 class LudamError extends Error {
   constructor(status, code, message) {
@@ -196,14 +196,26 @@ class Client extends EventEmitter {
     this.emit("raw", d);
     if (d.type === "command") {
       const c = this.commands.get(String(d.command || "").toLowerCase());
-      this.emit("command", ctx);
+      this._fire("command", ctx);
       if (c) await c.run(ctx);
-    } else if (d.type === "message") this.emit("message", ctx);
-    else if (d.type === "member_join") this.emit("memberJoin", ctx);
-    else if (d.type === "member_leave") this.emit("memberLeave", ctx);
-    else if (d.type === "install") this.emit("install", ctx);
-    else if (d.type === "uninstall") this.emit("uninstall", ctx);
-    else if (d.type === "ping") this.emit("ping", ctx);
+    } else if (d.type === "message") this._fire("message", ctx);
+    else if (d.type === "member_join") this._fire("memberJoin", ctx);
+    else if (d.type === "member_leave") this._fire("memberLeave", ctx);
+    else if (d.type === "install") this._fire("install", ctx);
+    else if (d.type === "uninstall") this._fire("uninstall", ctx);
+    else if (d.type === "ping") this._fire("ping", ctx);
+  }
+
+  // async 로 쓴 이벤트 코드에서 오류가 나도 봇 프로그램이 꺼지지 않게 잡아 줘요 (1.0.1)
+  _fire(name, ctx) {
+    for (const fn of this.listeners(name)) {
+      try {
+        const r = fn.call(this, ctx);
+        if (r && typeof r.then === "function") r.then(undefined, (e) => this._err(e));
+      } catch (e) {
+        this._err(e);
+      }
+    }
   }
 
   // "error" 듣는 곳이 없으면 프로그램이 꺼지지 않게 화면에만 보여 줘요
