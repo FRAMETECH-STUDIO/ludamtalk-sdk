@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ludamtalk"
+version = "1.0.0"
+description = "루담톡(LudamTalk) 온라인채팅 봇 SDK — 게이트웨이 연결, 명령어, 임베드, 보안 봇, AI 봇"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "FRAMETECH STUDIO" }]
+dependencies = ["websockets>=12"]
+keywords = ["ludamtalk", "루담톡", "bot", "chatbot", "sdk"]
+
+[project.urls]
+Homepage = "https://ludamtalk.com/developers"
+
+[tool.setuptools]
+packages = ["ludamtalk"]

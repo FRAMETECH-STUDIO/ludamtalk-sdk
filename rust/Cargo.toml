@@ -1,0 +1,18 @@
+[package]
+name = "ludamtalk"
+version = "1.0.0"
+edition = "2021"
+description = "루담톡(LudamTalk) 온라인채팅 봇 SDK — 게이트웨이 연결, 명령어, 임베드, 보안 봇, AI 봇"
+license = "MIT"
+homepage = "https://ludamtalk.com/developers"
+repository = "https://github.com/FRAMETECH-STUDIO/ludamtalk-sdk"
+readme = "README.md"
+keywords = ["ludamtalk", "bot", "chatbot", "sdk"]
+
+[dependencies]
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "time", "sync"] }
+tokio-tungstenite = { version = "0.24", features = ["rustls-tls-webpki-roots"] }
+futures-util = { version = "0.3", default-features = false, features = ["sink", "std"] }
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"

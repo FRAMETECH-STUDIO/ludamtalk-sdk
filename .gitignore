@@ -1,0 +1,9 @@
+node_modules/
+build/
+.gradle/
+.kotlin/
+target/
+Cargo.lock
+dist/
+*.egg-info/
+__pycache__/

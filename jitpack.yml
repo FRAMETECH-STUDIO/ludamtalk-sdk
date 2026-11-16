@@ -1,0 +1,4 @@
+jdk:
+  - openjdk17
+install:
+  - cd kotlin && chmod +x gradlew && ./gradlew publishToMavenLocal -x test
